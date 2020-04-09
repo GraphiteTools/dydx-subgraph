@@ -1,0 +1,37 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Solo Margin
+    network: mainnet
+    source:
+      address: "0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e"
+      abi: dydx
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      eventHandlers:
+        - event: LogDeposit(indexed address,uint256,uint256,((bool,uint256),(bool,uint128)),address)
+          handler: handleDeposit
+        - event: LogWithdraw(indexed address,uint256,uint256,((bool,uint256),(bool,uint128)),address)
+          handler: handleWithdraw
+        - event: LogTransfer(indexed address,uint256,indexed address,uint256,uint256,((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)))
+          handler: handleTransfer
+        - event: LogBuy(indexed address,uint256,uint256,uint256,((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)),address)
+          handler: handleBuy
+        - event: LogSell(indexed address,uint256,uint256,uint256,((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)),address)
+          handler: handleSell
+        - event: LogTrade(indexed address,uint256,indexed address,uint256,uint256,uint256,((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)),address)
+          handler: handleTrade
+        - event: LogLiquidate(indexed address,uint256,indexed address,uint256,uint256,uint256,((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)),((bool,uint256),(bool,uint128)))
+          handler: handleLiquidate
+      abis:
+        - name: dydx
+          file: ./abis/dydx.json
+        - name: erc20
+          file: ./abis/erc20.json
+      file: ./src/main.ts

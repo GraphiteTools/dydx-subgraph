@@ -1,0 +1,26 @@
+type Token @entity {
+	id: ID!
+	address: Bytes!
+}
+
+type Market @entity {
+	id: ID!
+	token: Token!
+	supplyIndex: BigInt!
+	borrowIndex: BigInt!
+	supplyRate: BigInt!
+	borrowRate: BigInt!
+}
+
+type Balance @entity {
+	id: ID!
+	user: User!
+	number: BigInt!
+	market: Market!
+	balance: BigInt!
+}
+
+type User @entity {
+	id: ID!
+	balances: [Balance!] @derivedFrom(field: "user")
+}
