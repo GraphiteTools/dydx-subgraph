@@ -1,6 +1,12 @@
 {
   "name": "dydx-subgraph",
-  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "description": "dYdX Subgraph",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/GraphiteTools/dydx-subgraph.git"
+  },
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
